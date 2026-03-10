@@ -1,0 +1,19 @@
+organizacao: cloudhealth
+ambientes:
+  - nome: desenvolvimento
+    regiao: us-east-1
+    componentes:
+      - app-service
+      - banco-postgresql
+  - nome: producao
+    regiao: us-east-1
+    componentes:
+      - app-service
+      - banco-postgresql
+      - cache-redis
+seguranca:
+  autenticacao: sso corporativo
+  segredos: cofre-centralizado
+observabilidade:
+  logs: agregador-central
+  metricas: dashboard-operacional
