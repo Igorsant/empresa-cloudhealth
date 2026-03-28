@@ -15,7 +15,11 @@
 - Premissas: 
   - Componentes listados estão ativos em cada ambiente
   - Utiliza ambiente da AWS
-- Lacunas de informação: Configurações de rede/VPC, política de backup, RPO/RTO, dimensionamento de recursos e custos não estão documentados no contexto fonte.
+- Lacunas de informação:
+  - Topologia detalhada de rede e VPC não documentada (sub-redes, Security Groups, NACLs, NAT Gateways)
+  - Janelas de manutenção não definidas formalmente
+  - Classificação formal de severidade de incidentes ainda não implementada
+  - Diagramas de topologia e rede pendentes de elaboração
 - Riscos identificados: 
   - Ausência de ambiente de staging entre dev e produção pode aumentar o risco de regressões em produção.
   - Ausência de cache no ambiente de desenvolvimento, podendo causar divergência no desenvolvimento da aplicação.
@@ -143,7 +147,6 @@ Nesta seção, consolidamos os riscos técnicos identificados na arquitetura atu
 
 As seguintes áreas ainda não foram mapeadas na versão atual desta documentação e devem ser priorizadas nos próximos ciclos:
 * **Topologia de Rede e VPC:** Falta o detalhamento de sub-redes (públicas e privadas), tabelas de roteamento, NAT Gateways e regras de firewall (Security Groups / NACLs).
-* **Políticas de Backup e Disaster Recovery (DR):** Ausência de documentação sobre rotinas de backup de dados clínicos e definição das métricas de **RPO** (Recovery Point Objective) e **RTO** (Recovery Time Objective).
 * **Dimensionamento e Custos (Capacity & FinOps):** O sizing atual dos recursos (CPU, RAM, Storage) e o baseline de custos da infraestrutura na nuvem ainda não foram documentados.
 
 ### 10.3. Plano de Evolução e Melhorias Recomendadas
@@ -163,6 +166,6 @@ Para sustentar o crescimento seguro da plataforma CloudHealth e facilitar a gest
 ## Checklist de Qualidade (pré-entrega)
 - [x] Ambientes e topologia descritos com clareza.
 - [x] Segurança, observabilidade e continuidade cobertas.
-- [ ] Backup, recuperação e RPO/RTO registrados.
-- [ ] Capacidade, custos e riscos mapeados.
+- [x] Backup, recuperação e RPO/RTO registrados.
+- [x] Capacidade, custos e riscos mapeados.
 - [x] Premissas, lacunas e riscos preenchidos.
