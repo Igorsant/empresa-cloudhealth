@@ -66,9 +66,18 @@
 - Oportunidades de otimização de custo: Ambos os ambientes na mesma região (us-east-1) — avaliar uso de instâncias reservadas ou Savings Plans.
 
 ## 9. Operação e Rotinas
-- Rotinas operacionais: A preencher.
-- Janelas de manutenção: A preencher.
-- Gestão de incidentes: A preencher.
+- Rotinas operacionais:
+    - Monitoramento contínuo da infraestrutura por meio de dashboards operacionais
+    - Análise periódica de logs centralizados para identificação de falhas e anomalias
+    - Verificação da disponibilidade dos serviços críticos
+- Janelas de manutenção:
+    - Ainda não definidas formalmente
+    - Recomenda-se definição de janelas fora do horário de pico para minimizar impacto aos usuários
+- Gestão de incidentes: 
+    - Incidentes são identificados por meio de alertas gerados pelo sistema de monitoramento
+    - A equipe DevOps é responsável pela análise e resolução dos incidentes
+    -  O diagnóstico é realizado com base em logs e métricas coletadas
+    - Recomenda-se adoção futura de classificação de incidentes por severidade. Ex: Crítico, alto, médio, etc...
 
 ## 10. Riscos e Plano de Evolução
 - Riscos técnicos atuais: Ausência de cache Redis no ambiente de desenvolvimento pode mascarar comportamentos dependentes de cache em produção.
