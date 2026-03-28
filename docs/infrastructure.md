@@ -35,8 +35,8 @@
 ## 3. Componentes de Infraestrutura
 | Componente | Função | Ambiente(s) | Observações |
 |---|---|---|---|
-| app-service | Serviço de aplicação principal | Desenvolvimento, Produção | |
-| banco-postgresql | Banco de dados relacional | Desenvolvimento, Produção | |
+| app-service | Serviço de aplicação principal (ex. Node.js)| Desenvolvimento, Produção | Presente em todos os ambientes |
+| banco-postgresql | Armazenamento de dados | Desenvolvimento, Produção | Backups automáticos diários |
 | cache-redis | Cache em memória | Produção apenas | Não presente no ambiente de desenvolvimento |
 | Métricas | Monitoramento | Produção apenas (Grafana) | Alertas |
 
