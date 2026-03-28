@@ -55,10 +55,35 @@
 - Estratégia de logs: Logs centralizados via agregador central.
 
 ## 7. Backup, Recuperação e Continuidade
-- Política de backup: Não documentada — a preencher.
-- Estratégia de restauração: Não documentada — a preencher.
-- RPO/RTO desejados: Não documentados — a preencher.
-- Plano de contingência: Não documentado — a preencher.
+- Política de backup:
+ Banco de dados PostgreSQL:
+ Backups automáticos diários (full backup)
+ Backups incrementais a cada 6 horas
+ Retenção de backups por 7 dias em desenvolvimento e 30 dias em produção
+ Cache Redis:
+ Snapshot diário (RDB) apenas em produção
+ Não considerado crítico para recuperação completa (dados voláteis)
+ Aplicação (app-service):
+ Artefatos versionados em repositório (CI/CD)
+ Não requer backup direto
+- Estratégia de restauração: PostgreSQL:
+ Restauração a partir do último backup completo + incrementais
+ Procedimento validado via restore em ambiente isolado
+ Redis:
+ Restauração via snapshot mais recente (quando aplicável)
+ Aplicação:
+ Reimplantação via pipeline CI/CD
+- RPO/RTO desejados: 
+ Produção: até 6 horas de perda de dados
+ Desenvolvimento: até 24 horas
+- Plano de contingência: Falha no banco:
+ Restaurar backup mais recente
+ Redirecionar aplicação para nova instância
+ Falha na aplicação:
+ Re-deploy automático via pipeline
+ Falha de infraestrutura regional:
+ Ainda não suportado (single region: us-east-1)
+ Recomendação futura: replicação multi-região
 
 ## 8. Capacidade e Custos
 - Perfil de consumo atual: Não documentado — a preencher.
