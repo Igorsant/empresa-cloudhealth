@@ -4,17 +4,19 @@
 - Documento: Infraestrutura CloudHealth
 - Versão: 1.0
 - Status: Rascunho
-- Responsável (owner):
-- Aprovador:
+- Responsável (owner): Engenheiros Devops
+- Aprovador: Arquiteto de soluções
 - Última atualização: 2026-03-28
-- Próxima revisão:
+- Próxima revisão: 2027-03-29
 - Público-alvo: Times de engenharia, operações e segurança
 - Classificação da informação: Interna
 
 ## Premissas, Lacunas e Riscos (preenchimento obrigatório)
 - Premissas: As informações refletem o estado atual do arquivo `src/contexto-infraestrutura.yaml`. Componentes listados estão ativos em cada ambiente.
 - Lacunas de informação: Configurações de rede/VPC, política de backup, RPO/RTO, dimensionamento de recursos e custos não estão documentados no contexto fonte.
-- Riscos identificados: Ausência de ambiente de staging entre dev e produção pode aumentar o risco de regressões em produção.
+- Riscos identificados: 
+  - Ausência de ambiente de staging entre dev e produção pode aumentar o risco de regressões em produção.
+  - Ausência de cache no ambiente de desenvolvimento, podendo causar divergência no desenvolvimento da aplicação.
 
 
 ## 1. Visão Geral
