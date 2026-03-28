@@ -39,10 +39,11 @@
 ## 3. Componentes de Infraestrutura
 | Componente | Função | Ambiente(s) | Observações |
 |---|---|---|---|
-| app-service | Serviço de aplicação principal (ex. Node.js)| Desenvolvimento, Produção | Presente em todos os ambientes |
+| app-service | Serviço de aplicação principal (ex.: Node.js)| Desenvolvimento, Produção | Presente em todos os ambientes |
 | banco-postgresql | Armazenamento de dados | Desenvolvimento, Produção | Backups automáticos diários |
 | cache-redis | Cache em memória | Produção apenas | Não presente no ambiente de desenvolvimento |
-| Métricas | Monitoramento | Produção apenas (Grafana) | Alertas |
+| métricas | Monitoramento | Produção apenas (Grafana) | Alertas |
+| agregador-central | centraizador de logs | Desenvolvimento, Produção | Ponto único de retenção e busca (ex.: CloudWatch) |
 
 ## 4. Rede e Conectividade
 - Segmentação de rede: ambientes separados logicamente (desenvolvimento e produção).
