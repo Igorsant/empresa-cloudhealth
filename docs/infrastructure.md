@@ -42,15 +42,15 @@
 
 ## 5. Segurança
 - Controle de acesso: Autenticação via SSO corporativo.
-- Gestão de segredos: Cofre centralizado — segredos não são armazenados em variáveis de ambiente ou repositório.
-- Criptografia em trânsito e em repouso: Não documentada — a preencher.
-- Requisitos de compliance relevantes: A preencher.
+- Gestão de segredos: AWS Secrets — segredos não são armazenados em variáveis de ambiente ou repositório.
+- Criptografia em trânsito e em repouso: Tráfego forçado via TLS 1.2+ e criptografia ativada via KMS para discos, banco de dados e backups.
+- Requisitos de compliance relevantes: Adequação à LGPD para dados sensíveis e conformidade com HIPAA para dados de saúde.
 
 ## 6. Observabilidade e Monitoramento
 - Ferramentas de observabilidade: Agregador central de logs, dashboard operacional de métricas.
-- Métricas críticas: A preencher com base no dashboard operacional.
-- Alertas e responsáveis: A preencher.
-- Estratégia de logs: Logs centralizados via agregador central.
+- Métricas críticas: Taxa de erros, latência (p90/p99) e throughput do app-service, além de saturação do banco-postgresql e cache-redis.
+- Alertas e responsáveis: P1 (Queda/Crítico) notifica o SRE/Plantão; P2 (Degradação) notifica a squad de desenvolvimento responsável.
+- Estratégia de logs: Logs centralizados via agregador central com formatação em JSON e mascaramento de dados pessoais (PII).
 
 ## 7. Backup, Recuperação e Continuidade
 - Política de backup: Não documentada — a preencher.
