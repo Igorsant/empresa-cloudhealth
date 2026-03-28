@@ -12,7 +12,9 @@
 - Classificação da informação: Interna
 
 ## Premissas, Lacunas e Riscos (preenchimento obrigatório)
-- Premissas: As informações refletem o estado atual do arquivo `src/contexto-infraestrutura.yaml`. Componentes listados estão ativos em cada ambiente.
+- Premissas: 
+  - Componentes listados estão ativos em cada ambiente
+  - Utiliza ambiente da AWS
 - Lacunas de informação: Configurações de rede/VPC, política de backup, RPO/RTO, dimensionamento de recursos e custos não estão documentados no contexto fonte.
 - Riscos identificados: 
   - Ausência de ambiente de staging entre dev e produção pode aumentar o risco de regressões em produção.
@@ -20,7 +22,7 @@
 
 
 ## 1. Visão Geral
-- Objetivo da infraestrutura: Suportar a aplicação CloudHealth nos ambientes de desenvolvimento e produção.
+- Objetivo da infraestrutura: Suportar a aplicação CloudHealth nos ambientes de desenvolvimento e produção com alta confiabilidade e alta disponibilidade.
 - Escopo da documentação: Ambientes, componentes, segurança e observabilidade conforme definidos em `src/contexto-infraestrutura.yaml`.
 - Ambientes cobertos: Desenvolvimento, Produção
 
