@@ -70,30 +70,30 @@
 
 ## 10. Riscos e Plano de Evolução
 
-Com base no levantamento atual (`src/contexto-infraestrutura.yaml`), consolidamos os riscos técnicos imediatos, as lacunas de documentação (gaps) que precisam ser preenchidas nas próximas revisões e o plano de evolução para garantir a segurança e estabilidade da plataforma CloudHealth.
+Nesta seção, consolidamos os riscos técnicos identificados na arquitetura atual, as lacunas de documentação que precisam ser preenchidas nas próximas iterações e o plano de evolução estratégica para a infraestrutura da CloudHealth, considerando a criticidade dos dados clínicos e agendas médicas.
 
 ### 10.1. Riscos Técnicos e Operacionais Atuais
 
 | Risco / Vulnerabilidade | Impacto (Negócio e Sistema) | Estratégia de Mitigação |
 | :--- | :--- | :--- |
-| **Ausência de Ambiente de Staging** | A falta de um ambiente intermediário entre Desenvolvimento e Produção aumenta drasticamente o risco de regressões, bugs e indisponibilidade afetando a operação real das agendas médicas. | Criar um ambiente de Staging/Homologação idêntico à Produção para validação de QA e testes de carga antes dos deploys oficiais. |
-| **Falta de Paridade no Cache (Redis)** | O `cache-redis` existe apenas em Produção. Desenvolvedores não conseguem prever ou testar comportamentos dependentes de cache no ambiente de Desenvolvimento. | Provisionar uma instância de Redis no ambiente de Desenvolvimento para garantir fidelidade de comportamento com a Produção. |
-| **Único Ponto de Falha (SPOF) e Continuidade** | Ambos os ambientes estão na mesma região (`us-east-1`) e não há documentação sobre replicação do `banco-postgresql` ou contingência. Uma falha regional paralisa o sistema. | Avaliar a necessidade de replicação do banco de dados (Multi-AZ) e definir urgentemente um plano de contingência e recuperação. |
+| **Falta de Paridade entre Ambientes** | A ausência de cache Redis no ambiente de Desenvolvimento pode mascarar comportamentos dependentes de cache, resultando em falhas ou gargalos inesperados ao fazer deploy em Produção. | Provisionar uma instância de Redis (com dimensionamento reduzido) no ambiente de DEV/Local para garantir fidelidade com a Produção. |
+| **Riscos de Continuidade e SPOF** | Sem o mapeamento claro de redundância, falhas em instâncias únicas podem derrubar o sistema de agendamento médico. | Revisar a arquitetura para garantir que serviços críticos e bancos de dados operem no mínimo em Multi-AZ (múltiplas zonas de disponibilidade). |
+| **Exposição de Dados Sensíveis** | Por ser uma HealthTech, configurações incorretas de rede podem expor dados clínicos, gerando multas e quebra de conformidade (LGPD). | Aplicar criptografia em trânsito e repouso por padrão, e revisar rigorosamente o acesso aos bancos de dados. |
 
 ### 10.2. Lacunas de Documentação (Gaps)
 
-Para as próximas revisões deste documento (após 2026-03-28), as seguintes áreas em branco devem ser investigadas e preenchidas com as áreas responsáveis:
-* **Rede e Segurança:** Detalhar segmentação de rede/VPC, regras de entrada/saída, criptografia (em trânsito e repouso) e listar os requisitos de compliance obrigatórios (ex: LGPD/HIPAA para dados clínicos).
-* **Continuidade e Recuperação (DR):** Definir e documentar a política de backup, estratégia de restauração e as métricas de RPO (Recovery Point Objective) e RTO (Recovery Time Objective).
-* **Operação e Observabilidade:** Mapear quais são as métricas críticas do dashboard operacional, configurar alertas, definir responsáveis e documentar janelas de manutenção e gestão de incidentes.
-* **Capacidade:** Levantar o perfil de consumo atual e o dimensionamento exato dos recursos.
+As seguintes áreas ainda não foram mapeadas na versão atual desta documentação e devem ser priorizadas nos próximos ciclos:
+* **Topologia de Rede e VPC:** Falta o detalhamento de sub-redes (públicas e privadas), tabelas de roteamento, NAT Gateways e regras de firewall (Security Groups / NACLs).
+* **Políticas de Backup e Disaster Recovery (DR):** Ausência de documentação sobre rotinas de backup de dados clínicos e definição das métricas de **RPO** (Recovery Point Objective) e **RTO** (Recovery Time Objective).
+* **Dimensionamento e Custos (Capacity & FinOps):** O sizing atual dos recursos (CPU, RAM, Storage) e o baseline de custos da infraestrutura na nuvem ainda não foram documentados.
 
 ### 10.3. Plano de Evolução e Melhorias Recomendadas
 
-Para sustentar o crescimento e garantir a governança da infraestrutura, recomendamos os seguintes passos estratégicos:
-1. **Implementação de FinOps (Otimização de Custos):** Como os ambientes rodam consolidados na região `us-east-1`, iniciar um estudo para adoção de instâncias reservadas ou *Savings Plans*, reduzindo o custo contínuo de computação.
-2. **Evolução da Topologia de Ambientes:** Efetivar a criação do ambiente de Staging (Homologação) mitigando o risco de regressões apontado na matriz de riscos.
-3. **Mapeamento de Compliance:** Priorizar o preenchimento da seção de Segurança, garantindo que a infraestrutura atenda aos requisitos legais de uma HealthTech antes de escalar novos serviços clínicos.
+Para sustentar o crescimento seguro da plataforma CloudHealth e facilitar a gestão de capacidade e conformidade, recomendamos as seguintes evoluções arquiteturais:
+1. **Criação de Ambiente de Staging (Homologação):** Implementar um ambiente isolado, porém idêntico à Produção, para realização de testes de carga, validação de QA e simulação de deploys. 
+2. **Alta Disponibilidade Geográfica:** Avaliar a implementação de replicação multi-região (Multi-Region) para o ambiente de Produção, garantindo a disponibilidade do serviço de ponta a ponta mesmo em caso de indisponibilidade regional do provedor de nuvem.
+3. **Maturidade em Observabilidade:** Implementar uma stack centralizada de monitoramento e logs para melhorar o tempo de detecção e resposta a incidentes.
+4. **Infraestrutura como Código (IaC):** Iniciar a migração do provisionamento manual para IaC (ex: Terraform), garantindo rastreabilidade e prevenindo *configuration drift* (mudanças não documentadas diretamente no portal da nuvem).
 
 ## Anexos e Referências
 - Diagramas de topologia e rede: A anexar.
