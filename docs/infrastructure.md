@@ -29,8 +29,8 @@
 ## 2. Topologia de Ambientes
 | Ambiente | Região | Finalidade | Criticidade | Responsável |
 |---|---|---|---|---|
-| Desenvolvimento | us-east-1 | Desenvolvimento e testes | Baixa | |
-| Produção | us-east-1 | Carga de trabalho real | Alta | |
+| Desenvolvimento | us-east-1 | Desenvolvimento e testes | Baixa | DevOps e Desenvolvimento|
+| Produção | us-east-1 | Carga de trabalho real | Alta | Data Protection Officer (DPO) e DevSecOps |
 
 ## 3. Componentes de Infraestrutura
 | Componente | Função | Ambiente(s) | Observações |
@@ -38,10 +38,11 @@
 | app-service | Serviço de aplicação principal | Desenvolvimento, Produção | |
 | banco-postgresql | Banco de dados relacional | Desenvolvimento, Produção | |
 | cache-redis | Cache em memória | Produção apenas | Não presente no ambiente de desenvolvimento |
+| Métricas | Monitoramento | Produção apenas (Grafana) | Alertas |
 
 ## 4. Rede e Conectividade
-- Segmentação de rede: Não documentada — a preencher.
-- Entrada/saída de tráfego: Não documentada — a preencher.
+- Segmentação de rede: ambientes separados logicamente (desenvolvimento e produção).
+- Entrada/saída de tráfego: entrada via requisições de usuários (HTTP/HTTPS).
 - Dependências externas: SSO corporativo (autenticação), cofre centralizado de segredos.
 
 ## 5. Segurança
